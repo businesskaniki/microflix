@@ -2,122 +2,154 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,800&family=Poppins&display=swap');
 
 @media only screen and (min-width: 768px) {
-    * {
-        margin: 0;
-        padding: 0;
-    }
+  * {
+    margin: 0;
+    padding: 0;
+  }
 
-    html {
-        font-size: 62.5%;
-    }
+  html {
+    font-size: 62.5%;
+  }
 
-    body {
-        font-size: 1.6rem;
-        font-family: 'Poppins', sans-serif;
-        background-color: rgb(0, 0, 0);
-    }
+  body {
+    font-size: 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(0, 0, 0);
+  }
 
-    ul {
-        list-style-type: none;
-    }
+  ul {
+    list-style-type: none;
+  }
 
-    a {
-        text-decoration: none;
-        color: #fff;
-    }
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
 
-    nav {
-        color: #fff;
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        font-size: 1.8rem;
-        padding-left: 5.3rem;
-        margin-bottom: 2rem;
-    }
-    
-    nav ul {
-        display: flex;
-        justify-content: flex-start;
-        width: 90%;
-        gap: 5rem;
-        padding: 2rem;
-    }
+  nav {
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.8rem;
+    padding-left: 5.3rem;
+    margin-bottom: 2rem;
+  }
 
-    .logo {
-        background-image: url(./imgs/logo.png);
-        background-size: cover;
-        width: 9.6rem;
-        height: 9.6rem;
-    }
+  nav ul {
+    display: flex;
+    justify-content: flex-start;
+    width: 90%;
+    gap: 5rem;
+    padding: 2rem;
+  }
 
-    .cards {
-        display: grid;
-        width: 90vw;
-        gap: 0.9rem;
-        margin: auto;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+  .logo {
+    background-image: url(./imgs/logo.png);
+    background-size: cover;
+    width: 9.6rem;
+    height: 9.6rem;
+  }
 
-    .card {
-        border-radius: 0.3rem;
-        height: 40rem; 
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        background-image: url(../src/imgs/movie.jpg);
-        background-size: cover;
-    }
+  .cards {
+    display: grid;
+    width: 90vw;
+    gap: 0.9rem;
+    margin: auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 
-    .card p {
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        margin-left: 0.8rem;
-        align-items: center;
-        font-size: 1.8rem;
-        color: 	#000;
-        gap: 0.5rem;
-    }
+  .card {
+    border-radius: 0.3rem;
+    height: 40rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-size: cover;
+  }
 
-    .card button {
-        margin-top: 0.5rem;
-        width: 100%;
-        padding: 1.2rem;
-        border-radius: 0 0 0.3rem 0.3rem ;
-        border: none;
-        box-sizing: border-box;
-        color: #000;
-        background-color: #e50914;
-        font-size: 1.8rem;
-    }
+  .card p {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    margin-left: 0.8rem;
+    align-items: center;
+    font-size: 1.8rem;
+    color: #000;
+    gap: 0.5rem;
+  }
 
-    .bi {
-        color: 	#e50914;
-        padding-left: 30%;
-    }
+  form button {
+    padding: 1rem 1.5rem;
+  }
 
-    .likes {
-        color: #000;
-        font-family: 'Courier New', Courier, monospace;
-        font-style: normal;
-        font-size: 1.6rem;
-    }
+  .card button {
+    margin-top: 0.5rem;
+    width: 100%;
+    padding: 1.2rem;
+    border-radius: 0 0 0.3rem 0.3rem;
+    border: none;
+    box-sizing: border-box;
+    color: #000;
+    background-color: #e50914;
+    font-size: 1.8rem;
+  }
 
-   footer {
+  .bi {
+    color: #e50914;
+    padding-left: 30%;
+  }
+
+  .likes {
+    color: #000;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
+    font-size: 1.6rem;
+  }
+
+  footer {
     color: #fff;
     margin-top: 2rem;
     padding: 2rem;
     border: 3px solid;
-   }
+  }
 
-   .popup {
+  .popup {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
     top: 10%;
     left: 4.4%;
     margin: auto;
     width: 90vw;
-    height: 85vh;
     background-color: aquamarine;
-   }
+  }
+
+  .movie {
+    width: 30rem;
+    height: 30rem;
+    background-image: url(./imgs/movie.jpg);
+    background-size: cover;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+
+  textarea {
+    padding: 1rem;
+    width: 20vw;
+    height: 10rem;
+    resize: none;
+  }
+
+  form input {
+    padding: 1rem;
+    width: 20vw;
+  }
 }

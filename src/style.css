@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,800&family=Poppins&display=swap');
 
 @media only screen and (max-width: 768px) {
-    ul {
-       list-style-type: none;
-    }
+  ul {
+    list-style-type: none;
+  }
 }
