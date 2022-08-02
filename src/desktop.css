@@ -1,4 +1,6 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,800&family=Poppins&display=swap');
+
 @media only screen and (min-width: 768px) {
     * {
         margin: 0;
@@ -11,28 +13,42 @@
 
     body {
         font-size: 1.6rem;
+        font-family: 'Poppins', sans-serif;
+        background-color: rgb(0, 0, 0);
     }
+
     ul {
         list-style-type: none;
     }
 
     a {
         text-decoration: none;
+        color: #fff;
     }
 
     nav {
+        color: #fff;
         display: flex;
         justify-content: space-around;
         align-items: center;
         font-size: 1.8rem;
+        padding-left: 5.3rem;
+        margin-bottom: 2rem;
     }
     
     nav ul {
         display: flex;
         justify-content: flex-start;
-        width: 70%;
+        width: 90%;
         gap: 5rem;
         padding: 2rem;
+    }
+
+    .logo {
+        background-image: url(./imgs/logo.png);
+        background-size: cover;
+        width: 9.6rem;
+        height: 9.6rem;
     }
 
     .cards {
@@ -44,43 +60,53 @@
     }
 
     .card {
-        position: relative;
+        border-radius: 0.3rem;
         height: 30rem; 
         display: flex;
-        align-items: flex-end;
+        flex-direction: column;
+        justify-content: flex-end;
+        background-image: url(../src/imgs/movie.jpg);
+        background-size: cover;
     }
 
-    .image {
-        background-color: mistyrose;
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-    }
-
-    .description {
-        width: 100%;
-    }
-
-    .description p {
+    .card p {
         display: flex;
-        justify-content: space-between;
-        width: 95%;
-        margin: auto;
+        justify-content: flex-start;
+        width: 100%;
+        margin-left: 0.8rem;
         align-items: center;
-        font-size: 2.3rem;
+        font-size: 1.8rem;
+        color: 	#000;
+        gap: 0.5rem;
     }
 
-    .description button {
+    .card button {
+        margin-top: 0.5rem;
         width: 100%;
         padding: 1.2rem;
-        border-radius: 0;
-        margin-top: 0.3rem;
+        border-radius: 0 0 0.3rem 0.3rem ;
         border: none;
+        box-sizing: border-box;
+        color: #000;
+        background-color: #e50914;
+        font-size: 1.8rem;
     }
+
+    .bi {
+        color: 	#e50914;
+        padding-left: 30%;
+    }
+
+    .likes {
+        color: #000;
+        font-family: 'Courier New', Courier, monospace;
+        font-style: normal;
+        font-size: 1.6rem;
+    }
+
    footer {
+    color: #fff;
+    margin-top: 2rem;
     padding: 2rem;
     border: 3px solid;
    }
