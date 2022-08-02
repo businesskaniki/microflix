@@ -1,0 +1,87 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+@media only screen and (min-width: 768px) {
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        font-size: 62.5%;
+    }
+
+    body {
+        font-size: 1.6rem;
+    }
+    ul {
+        list-style-type: none;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 1.8rem;
+    }
+    
+    nav ul {
+        display: flex;
+        justify-content: flex-start;
+        width: 70%;
+        gap: 5rem;
+        padding: 2rem;
+    }
+
+    .cards {
+        display: grid;
+        width: 90vw;
+        gap: 0.9rem;
+        margin: auto;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+
+    .card {
+        position: relative;
+        height: 30rem; 
+        display: flex;
+        align-items: flex-end;
+    }
+
+    .image {
+        background-color: mistyrose;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+
+    .description {
+        width: 100%;
+    }
+
+    .description p {
+        display: flex;
+        justify-content: space-between;
+        width: 95%;
+        margin: auto;
+        align-items: center;
+        font-size: 2.3rem;
+    }
+
+    .description button {
+        width: 100%;
+        padding: 1.2rem;
+        border-radius: 0;
+        margin-top: 0.3rem;
+        border: none;
+    }
+   footer {
+    padding: 2rem;
+    border: 3px solid;
+   }
+}
