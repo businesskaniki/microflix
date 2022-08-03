@@ -9,6 +9,7 @@ const fetchdata = async () => {
       const card = document.createElement('div');
       card.classList.add('card');
       const movie = response[movies];
+      card.id = `${movie.id}`;
       card.innerHTML += `
                 <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i><i class = "likes">5 likes</i></p>
                 <button>comments</button>
