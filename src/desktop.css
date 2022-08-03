@@ -94,6 +94,7 @@
   .bi {
     color: #e50914;
     padding-left: 30%;
+    cursor: pointer;
   }
 
   .likes {
