@@ -24,6 +24,17 @@ const popupDetails = async (id) => {
     body.append(popup);
     const image = document.querySelector('.movie');
     image.style.backgroundImage = `url(${response.image.original})`;
+    const close = document.querySelectorAll('.close');
+
+    close.forEach((c) => {
+      c.addEventListener('click', () => {
+        const main = document.querySelector('main');
+        const popup = document.querySelector('.popup');
+        popup.style.display = 'none';
+        main.style.filter = 'blur(0)';
+        window.location.reload();
+      });
+    });
   } catch (error) {
     return error;
   }
