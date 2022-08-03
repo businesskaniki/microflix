@@ -1,27 +1,4 @@
 /* eslint-disable consistent-return */
-
-const div = document.querySelector('.cards');
-const fetchdata = async () => {
-  const data = await fetch('https://api.tvmaze.com/shows');
-  try {
-    const response = await data.json();
-    for (let movies = 0; movies <= 15; movies += 1) {
-      const card = document.createElement('div');
-      card.classList.add('card');
-      const movie = response[movies];
-      card.id = `${movie.id}`;
-      card.innerHTML += `
-                <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i><i class = "likes">5 likes</i></p>
-                <button>comments</button>
-      `;
-      card.style.backgroundImage = `url(${movie.image.medium})`;
-      div.append(card);
-    }
-  } catch (error) {
-    return error;
-  }
-};
-
 const popupDetails = async (id) => {
   const data = await fetch(`https://api.tvmaze.com/shows/${id}`);
   try {
@@ -50,6 +27,37 @@ const popupDetails = async (id) => {
   } catch (error) {
     return error;
   }
+};
+
+const div = document.querySelector('.cards');
+const fetchdata = async () => {
+  const data = await fetch('https://api.tvmaze.com/shows');
+  try {
+    const response = await data.json();
+    for (let movies = 0; movies <= 15; movies += 1) {
+      const card = document.createElement('div');
+      card.classList.add('card');
+      const movie = response[movies];
+      card.id = `${movie.id}`;
+      card.innerHTML += `
+                <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i><i class = "likes">5 likes</i></p>
+                <button class= "open-comments" >comments</button>
+      `;
+      card.style.backgroundImage = `url(${movie.image.medium})`;
+      div.append(card);
+    }
+  } catch (error) {
+    return error;
+  }
+  const comments = document.querySelectorAll('.open-comments');
+  comments.forEach((comment) => {
+    comment.addEventListener('click', (e) => {
+      const main = document.querySelector('main');
+      main.style.filter = 'blur(6px)';
+      popupDetails(e.target.parentNode.id);
+      window.scroll({ top: 0, left: 0 });
+    });
+  });
 };
 
 export { fetchdata, popupDetails };
