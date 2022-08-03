@@ -1,5 +1,7 @@
 import './style.css';
 import './desktop.css';
-import fetchdata from './modules/fetch.js';
+import { fetchdata } from './modules/fetch.js';
 
-fetchdata();
+window.addEventListener('DOMContentLoaded', () => {
+  fetchdata();
+});
