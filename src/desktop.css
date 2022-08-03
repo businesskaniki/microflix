@@ -13,7 +13,7 @@
 
   body {
     font-size: 1.6rem;
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     background-color: rgb(0, 0, 0);
   }
 
@@ -60,6 +60,7 @@
   }
 
   .card {
+    /* position: relative; */
     border-radius: 0.3rem;
     height: 40rem;
     display: flex;
@@ -79,6 +80,12 @@
     gap: 0.5rem;
   }
 
+  form button {
+    padding: 1rem 1.5rem;
+    border-radius: 0;
+    border: none;
+  }
+
   .card button {
     margin-top: 0.5rem;
     width: 100%;
@@ -87,6 +94,7 @@
     border: none;
     box-sizing: border-box;
     color: #000;
+    cursor: pointer;
     background-color: #e50914;
     font-size: 1.8rem;
   }
@@ -99,7 +107,7 @@
 
   .likes {
     color: #000;
-    font-family: "Courier New", Courier, monospace;
+    font-family: 'Courier New', Courier, monospace;
     font-style: normal;
     font-size: 1.6rem;
   }
@@ -109,5 +117,70 @@
     margin-top: 2rem;
     padding: 2rem;
     border: 3px solid;
+  }
+
+  .popup {
+    position: absolute;
+    top: 12.5%;
+    left: 25%;
+    background-color: #000;
+    border: 3px solid  #e50914;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 50vw;
+    gap: 1rem;
+  }
+
+  .close {
+    transform: scale(3);
+    align-self: flex-end;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+
+  .movie {
+    width: 50rem;
+    height: 30rem;
+    background-size: cover;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    width: 50rem;
+  }
+
+  textarea {
+    padding: 1rem;
+    width: 20vw;
+    height: 10rem;
+    resize: none;
+  }
+
+  form input {
+    padding: 1rem;
+    width: 20vw;
+  }
+
+  .rating {
+    display: flex;
+    justify-content: space-between;
+    width: 50rem;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    width: 50rem;
+  }
+
+  .comments {
+    width: 50rem;
   }
 }
