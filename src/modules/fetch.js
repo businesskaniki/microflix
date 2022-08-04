@@ -76,17 +76,18 @@ const displayPopup = (response) => {
 
 const displayMovies = async () => {
   const response = await fetchdata();
-  for (let movies = 160; movies <= 179; movies += 1) {
+  for (let movies = 162; movies <= 182; movies += 1) {
     const card = document.createElement('div');
     card.classList.add('card');
     const movie = response[movies];
     card.id = `${movie.id}`;
     card.innerHTML += `
-            <p><span>${movie.name}</span><span class="likespan"><i class="bi bi-heart-fill"></i><i class="likes"></i><span/></p>
+            <p><span>${movie.name}</span><span class="likespan"><i class="bi bi-heart-fill"></i><i id="likes${movie.id}" class="likes"></i><span/></p>
             <button class= "open-comments" >comments</button>
   `;
     card.style.backgroundImage = `url(${movie.image.original})`;
     div.append(card);
+    fetchLikes(movie.id);
   }
   const displayAllMovies = () => {
     const container = document.querySelector('.cards');
@@ -134,7 +135,6 @@ const displayMovies = async () => {
     });
   });
 };
-
 const postlikes = async (btnid) => {
   const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes', {
     method: 'POST',
@@ -145,12 +145,30 @@ const postlikes = async (btnid) => {
       item_id: btnid,
     }),
   });
-  // const likeItems = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes');
-  // const itemList = await likeItems.json();
-  // itemList.forEach((item) => {
-  //   const likeItem = document.querySelector(`[data-id = '${item.item_id}']`);
-  //   likeItem.innerHTML = `${item.likes}`;
-  // });
+  const response = await posts.json();
+  return response;
 };
 
-export { popupDetails, displayMovies };
+const fetchLikes = async (id) => {
+  const likesData = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes');
+  const response = await likesData.json();
+  const liketext = document.getElementById(`${id}`);
+  const res = response.find((r) => +r.item_id === id);
+  liketext.childNodes[1].childNodes[1].childNodes[1].textContent = res.likes;
+  console.log(liketext.childNodes[1].childNodes[1].childNodes[1].textContent);
+  // response = response.filter((item) => {
+  //   item.item_id === id;
+  //   console.log(item.item_id);
+
+  // });
+  // console.log(response);
+};
+
+fetchdata();
+export { popupDetails, displayMovies, fetchLikes };
+
+// const updateCompleted = (index) => {
+//   const task = tasks.find((task) => task.index === index);
+//   task.completed = true;
+//   localStorage.setItem('tasks', JSON.stringify(tasks));
+// };

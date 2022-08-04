@@ -83,9 +83,9 @@
 //             }),
 //           },
 //         );
-        const response = await data.json();
-        return response;
-//       };
+//         const response = await data.json();
+//         return response;
+// //       };
 //     });
   
 //     const comments = document.querySelectorAll('.open-comments');
@@ -110,5 +110,5 @@
 //     });
 //   };
   
-//   export { fetchdata, popupDetails };
+// //   export { fetchdata, popupDetails };
   
