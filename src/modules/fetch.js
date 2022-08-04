@@ -25,22 +25,6 @@ const popupDetails = async (id) => {
   }
 };
 
-const displayMovies = async () => {
-  const response = await fetchdata();
-  for (let movies = 0; movies <= 15; movies += 1) {
-    const card = document.createElement('div');
-    card.classList.add('card');
-    const movie = response[movies];
-    card.id = `${movie.id}`;
-    card.innerHTML += `
-            <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
-            <button class= "open-comments" >comments</button>
-  `;
-    card.style.backgroundImage = `url(${movie.image.medium})`;
-    div.append(card);
-  }
-};
-
 const displayPopup = (response) => {
   const body = document.querySelector('body');
   const popup = document.createElement('div');
@@ -51,7 +35,7 @@ const displayPopup = (response) => {
   <h2>${response.name}</h2>
   <p class = "rating"><span>Imbd rating : ${response.rating.average}</span><span>Average Length: ${response.averageRuntime}min</span></p>
   <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
-  <h3>Comments(0)</h3>
+  <h3>Comments(<span>0</span>)</h3>
   <ul class="comments"></ul>
   <h4>Add a comment</h4>
   <form action="#" id = "form${response.id}">
@@ -75,40 +59,68 @@ const displayPopup = (response) => {
     const comment = new Comment(id, username, newComment);
     if (username && newComment) {
       postComment(comment);
+      const date = Date().split(' ').splice(1, 3).join(' ')
+        .split(' ')
+        .reverse();
+      const month = ('JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(date.slice(2).join('')) / 3 + 1);
+      const comHeader = document.querySelector('.popup h3 span');
+      const savedComments = document.querySelector('.comments');
+      comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
+      savedComments.innerHTML += `<li>${date[0].concat(`-0${month}-${date[1]}`)} ${comment.username}: ${comment.comment}</li>`;
     }
     form.reset();
   });
 };
 
-const displayComments = async () => {
-  await displayMovies();
-  const comments = document.querySelectorAll('.open-comments');
-  comments.forEach((comment) => {
-    comment.addEventListener('click', async (e) => {
-      const main = document.querySelector('main');
-      main.style.filter = 'blur(6px)';
-      const result = await popupDetails(e.target.parentNode.id);
-      displayPopup(result);
-      window.scroll({ top: 0, left: 0 });
+const displayMovies = async () => {
+  const response = await fetchdata();
+  for (let movies = 160; movies <= 179; movies += 1) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    const movie = response[movies];
+    card.id = `${movie.id}`;
+    card.innerHTML += `
+            <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
+            <button class= "open-comments" >comments</button>
+  `;
+    card.style.backgroundImage = `url(${movie.image.original})`;
+    div.append(card);
+  }
+  const displayAllMovies = () => {
+    const container = document.querySelector('.cards');
+    const allMovies = document.getElementById('all');
+    allMovies.textContent = `All movies (${container.childNodes.length})`;
+  };
+  displayAllMovies();
 
-      const close = document.querySelector('.close');
-      close.addEventListener('click', () => {
-        const pop = document.querySelector('.popup');
+  const displayComments = () => {
+    const comments = document.querySelectorAll('.open-comments');
+    comments.forEach((comment) => {
+      comment.addEventListener('click', async (e) => {
         const main = document.querySelector('main');
-        pop.style.display = 'none';
-        main.style.filter = 'blur(0)';
-        window.location.reload();
-      });
-      const savedComments = document.querySelector('.comments');
-      const comHeader = document.querySelector('.popup h3');
-      result.comments.forEach((r) => {
-        comHeader.textContent = `Comments(${result.comments.length})`;
-        savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
+        main.style.filter = 'blur(6px)';
+        const result = await popupDetails(e.target.parentNode.id);
+        displayPopup(result);
+        window.scroll({ top: 0, left: 0 });
+
+        const close = document.querySelector('.close');
+        close.addEventListener('click', () => {
+          const main = document.querySelector('main');
+          const body = document.querySelector('body');
+          body.removeChild(body.lastChild);
+          main.style.filter = 'blur(0)';
+        });
+
+        const savedComments = document.querySelector('.comments');
+        const comHeader = document.querySelector('.popup h3 span');
+        result.comments.forEach((r) => {
+          comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
+          savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
+        });
       });
     });
-  });
+  };
+  displayComments();
 };
 
-export {
-  displayComments, popupDetails, displayMovies,
-};
+export { popupDetails, displayMovies };
