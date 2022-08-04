@@ -1,4 +1,6 @@
 /* eslint-disable consistent-return */
+import { postComment, Comment } from './comments.js';
+
 const popupDetails = async (id) => {
   const data = await fetch(`https://api.tvmaze.com/shows/${id}`);
   try {
@@ -12,13 +14,14 @@ const popupDetails = async (id) => {
     <h2>${response.name}</h2>
     <p class = "rating"><span>Imbd rating : ${response.rating.average}</span><span>Average Length: ${response.averageRuntime}min</span></p>
     <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
+    <h3>Comments</h3>
     <ul class="comments">
         <li>12:78 Best movie I ever watched</li>
     </ul>
-   <form action="#">
+   <form action="#" id = "form${response.id}">
     <input type="text" placeholder="Your name">
     <textarea name="comments"  class = "add-comment" placeholder="Comment"></textarea>
-    <button type="submit" id = "submit">Comment</button>
+    <button type="submit" class = "submit">Comment</button>
    </form>
     `;
     body.append(popup);
@@ -35,6 +38,20 @@ const popupDetails = async (id) => {
         window.location.reload();
       });
     });
+
+    const forms = document.querySelectorAll('form');
+    forms.forEach((form) => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = document.querySelector('form input').value;
+        const newComment = document.querySelector('form textarea').value;
+        let { id } = form;
+        id = id.replace(/form/, '');
+        const comment = new Comment(id, username, newComment);
+        postComment(comment);
+        form.reset();
+      });
+    });
   } catch (error) {
     return error;
   }
@@ -45,13 +62,14 @@ const fetchdata = async () => {
   const data = await fetch('https://api.tvmaze.com/shows');
   try {
     const response = await data.json();
+
     for (let movies = 0; movies <= 15; movies += 1) {
       const card = document.createElement('div');
       card.classList.add('card');
       const movie = response[movies];
       card.id = `${movie.id}`;
       card.innerHTML += `
-                <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i><i class = "likes">5 likes</i></p>
+                <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
                 <button class= "open-comments" >comments</button>
       `;
       card.style.backgroundImage = `url(${movie.image.medium})`;
