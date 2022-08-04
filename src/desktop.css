@@ -26,6 +26,10 @@
     color: #fff;
   }
 
+  a:hover {
+    color: #e50914;
+  }
+
   nav {
     color: #fff;
     display: flex;
