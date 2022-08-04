@@ -103,6 +103,11 @@
   .bi {
     color: #e50914;
     align-self: flex-end;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .bi:hover {
+    transform: scale(1.2) skewX(-50deg) skewX(50deg);
   }
 
   .likes {
