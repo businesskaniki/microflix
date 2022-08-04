@@ -25,22 +25,6 @@ const popupDetails = async (id) => {
   }
 };
 
-const displayMovies = async () => {
-  const response = await fetchdata();
-  for (let movies = 0; movies <= 5; movies += 1) {
-    const card = document.createElement('div');
-    card.classList.add('card');
-    const movie = response[movies];
-    card.id = `${movie.id}`;
-    card.innerHTML += `
-            <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
-            <button class= "open-comments" >comments</button>
-  `;
-    card.style.backgroundImage = `url(${movie.image.medium})`;
-    div.append(card);
-  }
-};
-
 const displayPopup = (response) => {
   const body = document.querySelector('body');
   const popup = document.createElement('div');
@@ -80,35 +64,54 @@ const displayPopup = (response) => {
   });
 };
 
-const displayComments = async () => {
-  await displayMovies();
-  const comments = document.querySelectorAll('.open-comments');
-  comments.forEach((comment) => {
-    comment.addEventListener('click', async (e) => {
-      const main = document.querySelector('main');
-      main.style.filter = 'blur(6px)';
-      const result = await popupDetails(e.target.parentNode.id);
-      displayPopup(result);
-      window.scroll({ top: 0, left: 0 });
+const displayMovies = async () => {
+  const response = await fetchdata();
+  for (let movies = 0; movies <= 5; movies += 1) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    const movie = response[movies];
+    card.id = `${movie.id}`;
+    card.innerHTML += `
+            <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
+            <button class= "open-comments" >comments</button>
+  `;
+    card.style.backgroundImage = `url(${movie.image.medium})`;
+    div.append(card);
+  }
+  const displayAllMovies = () => {
+    const container = document.querySelector('.cards');
+    const allMovies = document.getElementById('all');
+    allMovies.textContent = `All movies (${container.childNodes.length})`;
+  };
+  displayAllMovies();
 
-      const close = document.querySelector('.close');
-      close.addEventListener('click', () => {
-        const pop = document.querySelector('.popup');
+  const displayComments = () => {
+    const comments = document.querySelectorAll('.open-comments');
+    comments.forEach((comment) => {
+      comment.addEventListener('click', async (e) => {
         const main = document.querySelector('main');
-        pop.style.display = 'none';
-        main.style.filter = 'blur(0)';
-        window.location.reload();
-      });
-      const savedComments = document.querySelector('.comments');
-      const comHeader = document.querySelector('.popup h3');
-      result.comments.forEach((r) => {
-        comHeader.textContent = `Comments(${result.comments.length})`;
-        savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
+        main.style.filter = 'blur(6px)';
+        const result = await popupDetails(e.target.parentNode.id);
+        displayPopup(result);
+        window.scroll({ top: 0, left: 0 });
+
+        const close = document.querySelector('.close');
+        close.addEventListener('click', () => {
+          const main = document.querySelector('main');
+          const body = document.querySelector('body');
+          body.removeChild(body.lastChild);
+          main.style.filter = 'blur(0)';
+        });
+        const savedComments = document.querySelector('.comments');
+        const comHeader = document.querySelector('.popup h3');
+        result.comments.forEach((r) => {
+          comHeader.textContent = `Comments(${result.comments.length})`;
+          savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
+        });
       });
     });
-  });
+  };
+  displayComments();
 };
 
-export {
-  displayComments, popupDetails, displayMovies,
-};
+export { popupDetails, displayMovies };
