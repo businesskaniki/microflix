@@ -59,11 +59,14 @@ const displayPopup = (response) => {
     const comment = new Comment(id, username, newComment);
     if (username && newComment) {
       postComment(comment);
-      const shownDate = [Date().split(' ').splice(1, 3).join(' ')];
+      const date = Date().split(' ').splice(1, 3).join(' ')
+        .split(' ')
+        .reverse();
+      const month = ('JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(date.slice(2).join('')) / 3 + 1);
       const comHeader = document.querySelector('.popup h3 span');
       const savedComments = document.querySelector('.comments');
       comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
-      savedComments.innerHTML += `<li>${shownDate} ${comment.username}: ${comment.comment}</li>`;
+      savedComments.innerHTML += `<li>${date[0].concat(`-0${month}-${date[1]}`)} ${comment.username}: ${comment.comment}</li>`;
     }
     form.reset();
   });
