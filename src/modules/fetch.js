@@ -3,8 +3,11 @@ import { postComment, Comment } from './comments.js';
 
 const popupDetails = async (id) => {
   const data = await fetch(`https://api.tvmaze.com/shows/${id}`);
+  const comments = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/comments?item_id=${id}`);
   try {
     const response = await data.json();
+    const commentsResponse = await comments.json();
+    response.comments = commentsResponse;
     const body = document.querySelector('body');
     const popup = document.createElement('div');
     popup.classList.add('popup');
@@ -14,10 +17,8 @@ const popupDetails = async (id) => {
     <h2>${response.name}</h2>
     <p class = "rating"><span>Imbd rating : ${response.rating.average}</span><span>Average Length: ${response.averageRuntime}min</span></p>
     <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
-    <h3>Comments</h3>
-    <ul class="comments">
-        <li>12:78 Best movie I ever watched</li>
-    </ul>
+    <h3></h3>
+    <ul class="comments"></ul>
    <form action="#" id = "form${response.id}">
     <input type="text" placeholder="Your name">
     <textarea name="comments"  class = "add-comment" placeholder="Comment"></textarea>
@@ -27,16 +28,17 @@ const popupDetails = async (id) => {
     body.append(popup);
     const image = document.querySelector('.movie');
     image.style.backgroundImage = `url(${response.image.original})`;
-    const close = document.querySelectorAll('.close');
 
-    close.forEach((c) => {
-      c.addEventListener('click', () => {
-        const main = document.querySelector('main');
-        const popup = document.querySelector('.popup');
-        popup.style.display = 'none';
-        main.style.filter = 'blur(0)';
-        window.location.reload();
-      });
+    const savedComments = document.querySelector('.comments');
+    const comHeader = document.querySelector('.popup h3');
+    response.comments.forEach((r) => {
+      if (r.comments === undefined) {
+        comHeader.textContent = `Comments(${r.comments.length})`;
+        savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
+      } else {
+        comHeader.textContent = 'Comments(0)';
+        savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
+      }
     });
 
     const forms = document.querySelectorAll('form');
@@ -52,6 +54,18 @@ const popupDetails = async (id) => {
         form.reset();
       });
     });
+
+    const close = document.querySelectorAll('.close');
+
+    close.forEach((c) => {
+      const pop = document.querySelector('.popup');
+      c.addEventListener('click', () => {
+        const main = document.querySelector('main');
+        pop.style.display = 'none';
+        main.style.filter = 'blur(0)';
+        window.location.reload();
+      });
+    });
   } catch (error) {
     return error;
   }
@@ -62,22 +76,30 @@ const fetchdata = async () => {
   const data = await fetch('https://api.tvmaze.com/shows');
   try {
     const response = await data.json();
-
-    for (let movies = 0; movies <= 15; movies += 1) {
-      const card = document.createElement('div');
-      card.classList.add('card');
-      const movie = response[movies];
-      card.id = `${movie.id}`;
-      card.innerHTML += `
-                <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
-                <button class= "open-comments" >comments</button>
-      `;
-      card.style.backgroundImage = `url(${movie.image.medium})`;
-      div.append(card);
-    }
+    return response;
   } catch (error) {
     return error;
   }
+};
+
+const displayMovies = async () => {
+  const response = await fetchdata();
+  for (let movies = 160; movies <= 180; movies += 1) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    const movie = response[movies];
+    card.id = `${movie.id}`;
+    card.innerHTML += `
+            <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
+            <button class= "open-comments" >comments</button>
+  `;
+    card.style.backgroundImage = `url(${movie.image.medium})`;
+    div.append(card);
+  }
+};
+
+const displayComments = async () => {
+  await displayMovies();
   const comments = document.querySelectorAll('.open-comments');
   comments.forEach((comment) => {
     comment.addEventListener('click', (e) => {
@@ -89,4 +111,4 @@ const fetchdata = async () => {
   });
 };
 
-export { fetchdata, popupDetails };
+export { displayComments, popupDetails, displayMovies };
