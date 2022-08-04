@@ -27,7 +27,7 @@ const popupDetails = async (id) => {
 
 const displayMovies = async () => {
   const response = await fetchdata();
-  for (let movies = 160; movies <= 180; movies += 1) {
+  for (let movies = 0; movies <= 15; movies += 1) {
     const card = document.createElement('div');
     card.classList.add('card');
     const movie = response[movies];
@@ -51,7 +51,7 @@ const displayPopup = (response) => {
   <h2>${response.name}</h2>
   <p class = "rating"><span>Imbd rating : ${response.rating.average}</span><span>Average Length: ${response.averageRuntime}min</span></p>
   <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
-  <h3></h3>
+  <h3>Comments(0)</h3>
   <ul class="comments"></ul>
   <form action="#" id = "form${response.id}">
   <input type="text" placeholder="Your name">
@@ -96,21 +96,15 @@ const displayComments = async () => {
         main.style.filter = 'blur(0)';
         window.location.reload();
       });
+      const savedComments = document.querySelector('.comments');
+      const comHeader = document.querySelector('.popup h3');
+      result.comments.forEach((r) => {
+        comHeader.textContent = `Comments(${result.comments.length})`;
+        savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
+      });
     });
   });
 };
-
-// const savedComments = document.querySelector('.comments');
-// const comHeader = document.querySelector('.popup h3');
-// response.comments.forEach((r) => {
-//   if (r.comments === undefined) {
-//     comHeader.textContent = `Comments(${r.comments.length})`;
-//     savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
-//   } else {
-//     comHeader.textContent = 'Comments(0)';
-//     savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
-//   }
-// });
 
 export {
   displayComments, popupDetails, displayMovies,
