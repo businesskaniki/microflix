@@ -35,7 +35,7 @@ const displayPopup = (response) => {
   <h2>${response.name}</h2>
   <p class = "rating"><span>Imbd rating : ${response.rating.average}</span><span>Average Length: ${response.averageRuntime}min</span></p>
   <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
-  <h3>Comments(0)</h3>
+  <h3>Comments(<span>0</span>)</h3>
   <ul class="comments"></ul>
   <h4>Add a comment</h4>
   <form action="#" id = "form${response.id}">
@@ -59,6 +59,11 @@ const displayPopup = (response) => {
     const comment = new Comment(id, username, newComment);
     if (username && newComment) {
       postComment(comment);
+      const shownDate = [Date().split(' ').splice(1, 3).join(' ')];
+      const comHeader = document.querySelector('.popup h3 span');
+      const savedComments = document.querySelector('.comments');
+      comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
+      savedComments.innerHTML += `<li>${shownDate} ${comment.username}: ${comment.comment}</li>`;
     }
     form.reset();
   });
@@ -102,10 +107,11 @@ const displayMovies = async () => {
           body.removeChild(body.lastChild);
           main.style.filter = 'blur(0)';
         });
+
         const savedComments = document.querySelector('.comments');
-        const comHeader = document.querySelector('.popup h3');
+        const comHeader = document.querySelector('.popup h3 span');
         result.comments.forEach((r) => {
-          comHeader.textContent = `Comments(${result.comments.length})`;
+          comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
           savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
         });
       });
