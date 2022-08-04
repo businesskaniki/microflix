@@ -53,6 +53,7 @@ const displayPopup = (response) => {
   <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
   <h3>Comments(0)</h3>
   <ul class="comments"></ul>
+  <h4>Add a comment</h4>
   <form action="#" id = "form${response.id}">
   <input type="text" placeholder="Your name">
   <textarea name="comments"  class = "add-comment" placeholder="Comment"></textarea>
@@ -67,12 +68,14 @@ const displayPopup = (response) => {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const username = document.querySelector('form input').value;
-    const newComment = document.querySelector('form textarea').value;
+    const username = document.querySelector('form input').value.trim();
+    const newComment = document.querySelector('form textarea').value.trim();
     let { id } = form;
     id = id.replace(/form/, '');
     const comment = new Comment(id, username, newComment);
-    postComment(comment);
+    if (username && newComment) {
+      postComment(comment);
+    }
     form.reset();
   });
 };
