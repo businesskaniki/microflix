@@ -1,5 +1,5 @@
 /* eslint-disable consistent-return */
-// import { postComment, Comment } from './comments.js';
+import { postComment, Comment } from './comments.js';
 
 const div = document.querySelector('.cards');
 const fetchdata = async () => {
@@ -62,6 +62,19 @@ const displayPopup = (response) => {
   body.append(popup);
   const image = document.querySelector('.movie');
   image.style.backgroundImage = `url(${response.image.original})`;
+
+  const form = document.querySelector('form');
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const username = document.querySelector('form input').value;
+    const newComment = document.querySelector('form textarea').value;
+    let { id } = form;
+    id = id.replace(/form/, '');
+    const comment = new Comment(id, username, newComment);
+    postComment(comment);
+    form.reset();
+  });
 };
 
 const displayComments = async () => {
@@ -84,36 +97,8 @@ const displayComments = async () => {
         window.location.reload();
       });
     });
-
-    // close.forEach((c) => {
-    //   const pop = document.querySelector('.popup');
-    //   c.addEventListener('click', async (e) => {
-    //     const main = document.querySelector('main');
-    //     const result = await popupDetails(e.target.parentNode.id);
-    //     displayPopup(result);
-    //     pop.style.display = 'none';
-    //     main.style.filter = 'blur(0)';
-    //     window.location.reload();
-    //   });
-    // });
   });
 };
-
-// const closeComments = async () => {
-
-// };
-
-// const close = document.querySelectorAll('.close');
-
-// close.forEach((c) => {
-//   const pop = document.querySelector('.popup');
-//   c.addEventListener('click', () => {
-//     const main = document.querySelector('main');
-//     pop.style.display = 'none';
-//     main.style.filter = 'blur(0)';
-//     window.location.reload();
-//   });
-// });
 
 // const savedComments = document.querySelector('.comments');
 // const comHeader = document.querySelector('.popup h3');
@@ -125,20 +110,6 @@ const displayComments = async () => {
 //     comHeader.textContent = 'Comments(0)';
 //     savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
 //   }
-// });
-
-// const forms = document.querySelectorAll('form');
-// forms.forEach((form) => {
-//   form.addEventListener('submit', (e) => {
-//     e.preventDefault();
-//     const username = document.querySelector('form input').value;
-//     const newComment = document.querySelector('form textarea').value;
-//     let { id } = form;
-//     id = id.replace(/form/, '');
-//     const comment = new Comment(id, username, newComment);
-//     postComment(comment);
-//     form.reset();
-//   });
 // });
 
 export {
