@@ -74,7 +74,7 @@ const displayPopup = (response) => {
 
 const displayMovies = async () => {
   const response = await fetchdata();
-  for (let movies = 0; movies <= 5; movies += 1) {
+  for (let movies = 160; movies <= 179; movies += 1) {
     const card = document.createElement('div');
     card.classList.add('card');
     const movie = response[movies];
@@ -83,7 +83,7 @@ const displayMovies = async () => {
             <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
             <button class= "open-comments" >comments</button>
   `;
-    card.style.backgroundImage = `url(${movie.image.medium})`;
+    card.style.backgroundImage = `url(${movie.image.original})`;
     div.append(card);
   }
   const displayAllMovies = () => {
