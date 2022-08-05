@@ -9,7 +9,7 @@ class Comment {
 }
 
 const postComment = async (comment) => {
-  const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/comments', {
+  const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/6eqgGD4SLBYFy2PQu6P9/comments', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -19,5 +19,8 @@ const postComment = async (comment) => {
   const result = await posts.json();
   return result;
 };
-
-export { postComment, Comment };
+const commentCounter = (value) => {
+  value += 1;
+  return value;
+};
+export { postComment, Comment, commentCounter };
