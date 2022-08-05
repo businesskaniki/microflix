@@ -89,7 +89,12 @@ const displayMovies = async () => {
     div.append(card);
     fetchLikes(movie.id);
   }
-
+  const displayAllMovies = () => {
+    const container = document.querySelector('.cards');
+    const allMovies = document.getElementById('all');
+    allMovies.textContent = `All movies (${container.childNodes.length})`;
+  };
+  displayAllMovies();
   const displayComments = () => {
     const comments = document.querySelectorAll('.open-comments');
     comments.forEach((comment) => {
