@@ -1,6 +1,6 @@
 # MICROFLIX
 
-![](./src/imgs/logo.png);
+![](./src/imgs/logo.png)
 
 > This is a project that helps you see the latest movies and  highly rated  movies all in one website. The movies are fetched from an API database and rendered in the DOM
 
@@ -19,10 +19,10 @@ To get a local copy up and running follow these simple example steps.
 
 ## Getting Started with these project
  ### pre requests
- -[] HTML knowledge
- -[] CSS knowledge
- -[] JavaScript knowledge
- -[] Node installed
+ - [ ] HTML knowledge
+ - [ ] CSS knowledge
+ - [ ] JavaScript knowledge
+ - [ ] Node installed
 
 ### Setup
 
