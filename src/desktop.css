@@ -181,12 +181,14 @@
     display: flex;
     justify-content: space-between;
     width: 50rem;
+    color: yellow;
   }
 
   .info {
     display: flex;
     justify-content: space-between;
     width: 50rem;
+    color: yellow;
   }
 
   .comments {
