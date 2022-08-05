@@ -32,6 +32,7 @@
     width: 5rem;
     height: 5rem;
   }
+
   nav {
     color: #fff;
     display: flex;
@@ -39,7 +40,7 @@
     align-items: center;
     margin-bottom: 1rem;
   }
-  
+
   nav ul {
     display: flex;
     justify-content: flex-start;
@@ -77,6 +78,12 @@
     color: #fff;
   }
 
+  form button {
+    padding: 0.8rem 1.8rem;
+    border-radius: 0;
+    border: none;
+  }
+
   .card button {
     width: 100%;
     padding: 5px;
@@ -88,15 +95,18 @@
     background-color: #e50914;
     font-size: 1.8rem;
   }
+
   .bi {
     color: #e50914;
     align-self: flex-end;
     font-size: large;
     transition: all 0.1s ease-in-out;
   }
+
   .bi:hover {
     transform: scale(1.2) skewX(-50deg) skewX(50deg);
   }
+
   .likes {
     color: #fff;
     font-family: 'Courier New', Courier, monospace;
@@ -110,7 +120,7 @@
     font-size: 1.4rem;
     border: 3px solid;
   }
-  
+
   .popup {
     position: absolute;
     font-size: 1.3rem;
@@ -128,10 +138,11 @@
     gap: 8px;
   }
 
-.popup h2 {
-  padding: 0;
-  margin: 0;
-}
+  .popup h2 {
+    padding: 0;
+    margin: 0;
+  }
+
   .movie {
     width: 100%;
     height: 20rem;
@@ -143,7 +154,7 @@
     width: 100%;
     box-sizing: border-box;
   }
-  
+
   .comments li {
     width: 100%;
   }
@@ -190,11 +201,5 @@
     transform: scale(2.7);
     align-self: flex-end;
     cursor: pointer;
-  }
-
-  form button {
-    padding: 0.8rem 1.8rem;
-    border-radius: 0;
-    border: none;
   }
 }
