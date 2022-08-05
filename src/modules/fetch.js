@@ -122,6 +122,7 @@ const displayMovies = async () => {
   likebtn.forEach((btn) => {
     const likeid = (btn.parentNode.parentNode.parentNode.id);
     btn.addEventListener('click', (e) => {
+      btn.classList.add('bi-heartbreak-fill');
       const initiallikes = +e.target.nextSibling.textContent;
       let count = initiallikes;
       // eslint-disable-next-line no-multi-assign
