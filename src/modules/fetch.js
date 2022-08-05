@@ -2,6 +2,7 @@
 /* eslint-disable max-len */
 /* eslint-disable consistent-return */
 import { postComment, Comment, commentCounter } from './comments.js';
+import displayAllMovies from './movies.js';
 
 const div = document.querySelector('.cards');
 const fetchdata = async () => {
@@ -80,7 +81,7 @@ const displayPopup = (response) => {
 
 const displayMovies = async () => {
   const response = await fetchdata();
-  for (let movies = 0; movies <= 30; movies += 1) {
+  for (let movies = 0; movies <= 35; movies += 1) {
     const card = document.createElement('div');
     card.classList.add('card');
     const movie = response[movies];
@@ -94,11 +95,9 @@ const displayMovies = async () => {
     fetchLikes(movie.id);
   }
 
-  const displayAllMovies = () => {
-    const container = document.querySelector('.cards');
-    const allMovies = document.getElementById('all');
-    allMovies.textContent = `All movies (${container.childNodes.length})`;
-  };
+  const container = document.querySelector('.cards');
+  const allMovies = document.getElementById('all');
+  displayAllMovies(allMovies.textContent = `All movies (${container.childNodes.length})`);
 
   displayAllMovies();
   const displayComments = () => {
