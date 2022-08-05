@@ -16,7 +16,7 @@ const fetchdata = async () => {
 
 const popupDetails = async (id) => {
   const data = await fetch(`https://api.tvmaze.com/shows/${id}`);
-  const comments = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/6eqgGD4SLBYFy2PQu6P9/comments?item_id=${id}`);
+  const comments = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/pRSMj4Sa1SZFpBHfoj5I/comments?item_id=${id}`);
   try {
     const response = await data.json();
     const commentsResponse = await comments.json();
@@ -80,7 +80,7 @@ const displayPopup = (response) => {
 
 const displayMovies = async () => {
   const response = await fetchdata();
-  for (let movies = 0; movies <= 15; movies += 1) {
+  for (let movies = 0; movies <= 30; movies += 1) {
     const card = document.createElement('div');
     card.classList.add('card');
     const movie = response[movies];
@@ -144,7 +144,7 @@ const displayMovies = async () => {
   });
 };
 const postlikes = async (btnid) => {
-  const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/6eqgGD4SLBYFy2PQu6P9/likes', {
+  const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/pRSMj4Sa1SZFpBHfoj5I/likes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ const postlikes = async (btnid) => {
 };
 
 const fetchLikes = async (id) => {
-  const likesData = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/6eqgGD4SLBYFy2PQu6P9/likes');
+  const likesData = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/pRSMj4Sa1SZFpBHfoj5I/likes');
   const response = await likesData.json();
   const liketext = document.getElementById(`${id}`);
   const res = response.find((r) => +r.item_id === id);
