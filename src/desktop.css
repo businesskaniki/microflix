@@ -196,5 +196,7 @@
   .likespan {
     display: flex;
     flex-direction: column;
+    height: 3.5rem;
+    align-items: center;
   }
 }
