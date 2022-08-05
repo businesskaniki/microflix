@@ -19,5 +19,8 @@ const postComment = async (comment) => {
   const result = await posts.json();
   return result;
 };
-
-export { postComment, Comment };
+const commentCounter = (value) => {
+  value += 1;
+  return value;
+};
+export { postComment, Comment, commentCounter };

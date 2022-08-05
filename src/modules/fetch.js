@@ -1,7 +1,7 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-len */
 /* eslint-disable consistent-return */
-import { postComment, Comment } from './comments.js';
+import { postComment, Comment, commentCounter } from './comments.js';
 
 const div = document.querySelector('.cards');
 const fetchdata = async () => {
@@ -37,7 +37,7 @@ const displayPopup = (response) => {
   <h2>${response.name}</h2>
   <p class = "rating"><span>Imbd rating : ${response.rating.average}</span><span>Average Length: ${response.averageRuntime}min</span></p>
   <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
-  <h3>Comments(<span>0</span>)</h3>
+  <h3>Comments (<span>0</span>)</h3>
   <ul class="comments"></ul>
   <h4>Add a comment</h4>
   <form action="#" id = "form${response.id}">
@@ -67,7 +67,7 @@ const displayPopup = (response) => {
       const month = ('JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(date.slice(2).join('')) / 3 + 1);
       const comHeader = document.querySelector('.popup h3 span');
       const savedComments = document.querySelector('.comments');
-      comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
+      comHeader.textContent = commentCounter(parseInt(comHeader.textContent, 10));
       savedComments.innerHTML += `<li>${date[0].concat(`-0${month}-${date[1]}`)} ${comment.username}: ${comment.comment}</li>`;
     }
     form.reset();
@@ -76,7 +76,7 @@ const displayPopup = (response) => {
 
 const displayMovies = async () => {
   const response = await fetchdata();
-  for (let movies = 162; movies <= 182; movies += 1) {
+  for (let movies = 120; movies <= 139; movies += 1) {
     const card = document.createElement('div');
     card.classList.add('card');
     const movie = response[movies];
@@ -89,6 +89,7 @@ const displayMovies = async () => {
     div.append(card);
     fetchLikes(movie.id);
   }
+
   const displayAllMovies = () => {
     const container = document.querySelector('.cards');
     const allMovies = document.getElementById('all');
@@ -124,6 +125,7 @@ const displayMovies = async () => {
     });
   };
   displayComments();
+
   const likebtn = document.querySelectorAll('.bi-heart-fill');
   likebtn.forEach((btn) => {
     const likeid = (btn.parentNode.parentNode.parentNode.id);
@@ -131,8 +133,8 @@ const displayMovies = async () => {
       btn.classList.add('bi-heartbreak-fill');
       const initiallikes = +e.target.nextSibling.textContent;
       let count = initiallikes;
-      // eslint-disable-next-line no-multi-assign
-      e.target.nextSibling.textContent = count += 1;
+      count += 1;
+      e.target.nextSibling.textContent = count;
       postlikes(likeid);
     });
   });
@@ -160,5 +162,6 @@ const fetchLikes = async (id) => {
   return res.likes;
 };
 
-fetchdata();
-export { popupDetails, displayMovies, fetchLikes };
+export {
+  popupDetails, displayMovies, fetchLikes,
+};
