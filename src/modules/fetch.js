@@ -127,8 +127,9 @@ const displayMovies = async () => {
   const likebtn = document.querySelectorAll('.bi-heart-fill');
   likebtn.forEach((btn) => {
     const likeid = (btn.parentNode.parentNode.parentNode.id);
-    let count = 0;
     btn.addEventListener('click', (e) => {
+      const initiallikes = +e.target.nextSibling.textContent;
+      let count = initiallikes;
       // eslint-disable-next-line no-multi-assign
       e.target.nextSibling.textContent = count += 1;
       postlikes(likeid);
@@ -155,20 +156,8 @@ const fetchLikes = async (id) => {
   const liketext = document.getElementById(`${id}`);
   const res = response.find((r) => +r.item_id === id);
   liketext.childNodes[1].childNodes[1].childNodes[1].textContent = res.likes;
-  console.log(liketext.childNodes[1].childNodes[1].childNodes[1].textContent);
-  // response = response.filter((item) => {
-  //   item.item_id === id;
-  //   console.log(item.item_id);
-
-  // });
-  // console.log(response);
+  return res.likes;
 };
 
 fetchdata();
 export { popupDetails, displayMovies, fetchLikes };
-
-// const updateCompleted = (index) => {
-//   const task = tasks.find((task) => task.index === index);
-//   task.completed = true;
-//   localStorage.setItem('tasks', JSON.stringify(tasks));
-// };
