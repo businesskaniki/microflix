@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable max-len */
 /* eslint-disable consistent-return */
 import { postComment, Comment } from './comments.js';
 
@@ -74,24 +76,19 @@ const displayPopup = (response) => {
 
 const displayMovies = async () => {
   const response = await fetchdata();
-  for (let movies = 160; movies <= 179; movies += 1) {
+  for (let movies = 162; movies <= 182; movies += 1) {
     const card = document.createElement('div');
     card.classList.add('card');
     const movie = response[movies];
     card.id = `${movie.id}`;
     card.innerHTML += `
-            <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
+            <p><span>${movie.name}</span><span class="likespan"><i class="bi bi-heart-fill"></i><i id="likes${movie.id}" class="likes"></i><span/></p>
             <button class= "open-comments" >comments</button>
   `;
     card.style.backgroundImage = `url(${movie.image.original})`;
     div.append(card);
+    fetchLikes(movie.id);
   }
-  const displayAllMovies = () => {
-    const container = document.querySelector('.cards');
-    const allMovies = document.getElementById('all');
-    allMovies.textContent = `All movies (${container.childNodes.length})`;
-  };
-  displayAllMovies();
 
   const displayComments = () => {
     const comments = document.querySelectorAll('.open-comments');
@@ -121,6 +118,40 @@ const displayMovies = async () => {
     });
   };
   displayComments();
+  const likebtn = document.querySelectorAll('.bi-heart-fill');
+  likebtn.forEach((btn) => {
+    const likeid = (btn.parentNode.parentNode.parentNode.id);
+    btn.addEventListener('click', (e) => {
+      const initiallikes = +e.target.nextSibling.textContent;
+      let count = initiallikes;
+      // eslint-disable-next-line no-multi-assign
+      e.target.nextSibling.textContent = count += 1;
+      postlikes(likeid);
+    });
+  });
+};
+const postlikes = async (btnid) => {
+  const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      item_id: btnid,
+    }),
+  });
+  const response = await posts.json();
+  return response;
 };
 
-export { popupDetails, displayMovies };
+const fetchLikes = async (id) => {
+  const likesData = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes');
+  const response = await likesData.json();
+  const liketext = document.getElementById(`${id}`);
+  const res = response.find((r) => +r.item_id === id);
+  liketext.childNodes[1].childNodes[1].childNodes[1].textContent = res.likes;
+  return res.likes;
+};
+
+fetchdata();
+export { popupDetails, displayMovies, fetchLikes };

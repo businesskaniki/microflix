@@ -115,7 +115,7 @@
   }
 
   .likes {
-    color: #000;
+    color: #fff;
     font-family: 'Courier New', Courier, monospace;
     font-style: normal;
     font-size: 1.6rem;
@@ -191,5 +191,10 @@
 
   .comments {
     width: 50rem;
+  }
+
+  .likespan {
+    display: flex;
+    flex-direction: column;
   }
 }
