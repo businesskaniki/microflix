@@ -1,3 +1,5 @@
+/* eslint-disable no-use-before-define */
+/* eslint-disable max-len */
 /* eslint-disable consistent-return */
 import { postComment, Comment } from './comments.js';
 
@@ -25,22 +27,6 @@ const popupDetails = async (id) => {
   }
 };
 
-const displayMovies = async () => {
-  const response = await fetchdata();
-  for (let movies = 0; movies <= 15; movies += 1) {
-    const card = document.createElement('div');
-    card.classList.add('card');
-    const movie = response[movies];
-    card.id = `${movie.id}`;
-    card.innerHTML += `
-            <p><span>${movie.name}</span><i class="bi bi-heart-fill"></i></p>
-            <button class= "open-comments" >comments</button>
-  `;
-    card.style.backgroundImage = `url(${movie.image.medium})`;
-    div.append(card);
-  }
-};
-
 const displayPopup = (response) => {
   const body = document.querySelector('body');
   const popup = document.createElement('div');
@@ -51,7 +37,7 @@ const displayPopup = (response) => {
   <h2>${response.name}</h2>
   <p class = "rating"><span>Imbd rating : ${response.rating.average}</span><span>Average Length: ${response.averageRuntime}min</span></p>
   <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
-  <h3>Comments(0)</h3>
+  <h3>Comments(<span>0</span>)</h3>
   <ul class="comments"></ul>
   <h4>Add a comment</h4>
   <form action="#" id = "form${response.id}">
@@ -75,40 +61,103 @@ const displayPopup = (response) => {
     const comment = new Comment(id, username, newComment);
     if (username && newComment) {
       postComment(comment);
+      const date = Date().split(' ').splice(1, 3).join(' ')
+        .split(' ')
+        .reverse();
+      const month = ('JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(date.slice(2).join('')) / 3 + 1);
+      const comHeader = document.querySelector('.popup h3 span');
+      const savedComments = document.querySelector('.comments');
+      comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
+      savedComments.innerHTML += `<li>${date[0].concat(`-0${month}-${date[1]}`)} ${comment.username}: ${comment.comment}</li>`;
     }
     form.reset();
   });
 };
 
-const displayComments = async () => {
-  await displayMovies();
-  const comments = document.querySelectorAll('.open-comments');
-  comments.forEach((comment) => {
-    comment.addEventListener('click', async (e) => {
-      const main = document.querySelector('main');
-      main.style.filter = 'blur(6px)';
-      const result = await popupDetails(e.target.parentNode.id);
-      displayPopup(result);
-      window.scroll({ top: 0, left: 0 });
+const displayMovies = async () => {
+  const response = await fetchdata();
+  for (let movies = 162; movies <= 182; movies += 1) {
+    const card = document.createElement('div');
+    card.classList.add('card');
+    const movie = response[movies];
+    card.id = `${movie.id}`;
+    card.innerHTML += `
+            <p><span>${movie.name}</span><span class="likespan"><i class="bi bi-heart-fill"></i><i id="likes${movie.id}" class="likes"></i><span/></p>
+            <button class= "open-comments" >comments</button>
+  `;
+    card.style.backgroundImage = `url(${movie.image.original})`;
+    div.append(card);
+    fetchLikes(movie.id);
+  }
+  const displayAllMovies = () => {
+    const container = document.querySelector('.cards');
+    const allMovies = document.getElementById('all');
+    allMovies.textContent = `All movies (${container.childNodes.length})`;
+  };
+  displayAllMovies();
 
-      const close = document.querySelector('.close');
-      close.addEventListener('click', () => {
-        const pop = document.querySelector('.popup');
+  const displayComments = () => {
+    const comments = document.querySelectorAll('.open-comments');
+    comments.forEach((comment) => {
+      comment.addEventListener('click', async (e) => {
         const main = document.querySelector('main');
-        pop.style.display = 'none';
-        main.style.filter = 'blur(0)';
-        window.location.reload();
+        main.style.filter = 'blur(6px)';
+        const result = await popupDetails(e.target.parentNode.id);
+        displayPopup(result);
+        window.scroll({ top: 0, left: 0 });
+
+        const close = document.querySelector('.close');
+        close.addEventListener('click', () => {
+          const main = document.querySelector('main');
+          const body = document.querySelector('body');
+          body.removeChild(body.lastChild);
+          main.style.filter = 'blur(0)';
+        });
+
+        const savedComments = document.querySelector('.comments');
+        const comHeader = document.querySelector('.popup h3 span');
+        result.comments.forEach((r) => {
+          comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
+          savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
+        });
       });
-      const savedComments = document.querySelector('.comments');
-      const comHeader = document.querySelector('.popup h3');
-      result.comments.forEach((r) => {
-        comHeader.textContent = `Comments(${result.comments.length})`;
-        savedComments.innerHTML += `<li>${r.creation_date} ${r.username}: ${r.comment}</li>`;
-      });
+    });
+  };
+  displayComments();
+  const likebtn = document.querySelectorAll('.bi-heart-fill');
+  likebtn.forEach((btn) => {
+    const likeid = (btn.parentNode.parentNode.parentNode.id);
+    btn.addEventListener('click', (e) => {
+      const initiallikes = +e.target.nextSibling.textContent;
+      let count = initiallikes;
+      // eslint-disable-next-line no-multi-assign
+      e.target.nextSibling.textContent = count += 1;
+      postlikes(likeid);
     });
   });
 };
-
-export {
-  displayComments, popupDetails, displayMovies,
+const postlikes = async (btnid) => {
+  const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      item_id: btnid,
+    }),
+  });
+  const response = await posts.json();
+  return response;
 };
+
+const fetchLikes = async (id) => {
+  const likesData = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes');
+  const response = await likesData.json();
+  const liketext = document.getElementById(`${id}`);
+  const res = response.find((r) => +r.item_id === id);
+  liketext.childNodes[1].childNodes[1].childNodes[1].textContent = res.likes;
+  return res.likes;
+};
+
+fetchdata();
+export { popupDetails, displayMovies, fetchLikes };
