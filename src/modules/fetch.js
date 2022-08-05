@@ -94,6 +94,7 @@ const displayMovies = async () => {
     const allMovies = document.getElementById('all');
     allMovies.textContent = `All movies (${container.childNodes.length})`;
   };
+
   displayAllMovies();
   const displayComments = () => {
     const comments = document.querySelectorAll('.open-comments');
