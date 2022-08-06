@@ -80,6 +80,7 @@
     box-sizing: border-box;
     width: 100%;
     padding: 15px;
+    max-height: 5.5rem;
     margin: 0;
     align-items: center;
     font-size: 1.8rem;
@@ -95,7 +96,7 @@
   .card button {
     width: 100%;
     padding: 1.2rem;
-    border-radius: 0 0 0.3rem 0.3rem;
+    border-radius: 0;
     border: none;
     box-sizing: border-box;
     color: #000;

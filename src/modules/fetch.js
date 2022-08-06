@@ -60,11 +60,8 @@ const displayPopup = (response) => {
     let { id } = form;
     id = id.replace(/form/, '');
     const comment = new Comment(id, username, newComment);
-    function isValid(str) {
-      return !/[~w!#$%^&*+=\-;,/{}|:<>]/g.test(str);
-    }
 
-    if (username && newComment && isValid(newComment)) {
+    if (username && newComment) {
       postComment(comment);
       const date = Date().split(' ').splice(1, 3).join(' ')
         .split(' ')
