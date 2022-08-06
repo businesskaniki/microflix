@@ -1,7 +1,8 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable max-len */
 /* eslint-disable consistent-return */
-import { postComment, Comment } from './comments.js';
+import { postComment, Comment, commentCounter } from './comments.js';
+import displayAllMovies from './movies.js';
 
 const div = document.querySelector('.cards');
 const fetchdata = async () => {
@@ -16,7 +17,7 @@ const fetchdata = async () => {
 
 const popupDetails = async (id) => {
   const data = await fetch(`https://api.tvmaze.com/shows/${id}`);
-  const comments = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/comments?item_id=${id}`);
+  const comments = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/pRSMj4Sa1SZFpBHfoj5I/comments?item_id=${id}`);
   try {
     const response = await data.json();
     const commentsResponse = await comments.json();
@@ -37,7 +38,7 @@ const displayPopup = (response) => {
   <h2>${response.name}</h2>
   <p class = "rating"><span>Imbd rating : ${response.rating.average}</span><span>Average Length: ${response.averageRuntime}min</span></p>
   <p class = "info"><span>Genre(s) : ${response.genres}</span><span>Premiered: ${response.premiered}</span></p>
-  <h3>Comments(<span>0</span>)</h3>
+  <h3>Comments (<span>0</span>)</h3>
   <ul class="comments"></ul>
   <h4>Add a comment</h4>
   <form action="#" id = "form${response.id}">
@@ -59,7 +60,11 @@ const displayPopup = (response) => {
     let { id } = form;
     id = id.replace(/form/, '');
     const comment = new Comment(id, username, newComment);
-    if (username && newComment) {
+    function isValid(str) {
+      return !/[~w!#$%^&*+=\-;,/{}|:<>]/g.test(str);
+    }
+
+    if (username && newComment && isValid(newComment)) {
       postComment(comment);
       const date = Date().split(' ').splice(1, 3).join(' ')
         .split(' ')
@@ -67,7 +72,7 @@ const displayPopup = (response) => {
       const month = ('JanFebMarAprMayJunJulAugSepOctNovDec'.indexOf(date.slice(2).join('')) / 3 + 1);
       const comHeader = document.querySelector('.popup h3 span');
       const savedComments = document.querySelector('.comments');
-      comHeader.textContent = parseInt(comHeader.textContent, 10) + 1;
+      comHeader.textContent = commentCounter(parseInt(comHeader.textContent, 10));
       savedComments.innerHTML += `<li>${date[0].concat(`-0${month}-${date[1]}`)} ${comment.username}: ${comment.comment}</li>`;
     }
     form.reset();
@@ -76,7 +81,7 @@ const displayPopup = (response) => {
 
 const displayMovies = async () => {
   const response = await fetchdata();
-  for (let movies = 162; movies <= 182; movies += 1) {
+  for (let movies = 0; movies <= 35; movies += 1) {
     const card = document.createElement('div');
     card.classList.add('card');
     const movie = response[movies];
@@ -89,11 +94,10 @@ const displayMovies = async () => {
     div.append(card);
     fetchLikes(movie.id);
   }
-  const displayAllMovies = () => {
-    const container = document.querySelector('.cards');
-    const allMovies = document.getElementById('all');
-    allMovies.textContent = `All movies (${container.childNodes.length})`;
-  };
+
+  const container = document.querySelector('.cards');
+  const allMovies = document.getElementById('all');
+  displayAllMovies(allMovies.textContent = `All movies (${container.childNodes.length})`);
 
   displayAllMovies();
   const displayComments = () => {
@@ -124,6 +128,7 @@ const displayMovies = async () => {
     });
   };
   displayComments();
+
   const likebtn = document.querySelectorAll('.bi-heart-fill');
   likebtn.forEach((btn) => {
     const likeid = (btn.parentNode.parentNode.parentNode.id);
@@ -131,14 +136,14 @@ const displayMovies = async () => {
       btn.classList.add('bi-heartbreak-fill');
       const initiallikes = +e.target.nextSibling.textContent;
       let count = initiallikes;
-      // eslint-disable-next-line no-multi-assign
-      e.target.nextSibling.textContent = count += 1;
+      count += 1;
+      e.target.nextSibling.textContent = count;
       postlikes(likeid);
     });
   });
 };
 const postlikes = async (btnid) => {
-  const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes', {
+  const posts = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/pRSMj4Sa1SZFpBHfoj5I/likes', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -152,7 +157,7 @@ const postlikes = async (btnid) => {
 };
 
 const fetchLikes = async (id) => {
-  const likesData = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/9YE3WJxp5XfKqI5kUFRZ/likes');
+  const likesData = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/pRSMj4Sa1SZFpBHfoj5I/likes');
   const response = await likesData.json();
   const liketext = document.getElementById(`${id}`);
   const res = response.find((r) => +r.item_id === id);
@@ -160,5 +165,6 @@ const fetchLikes = async (id) => {
   return res.likes;
 };
 
-fetchdata();
-export { popupDetails, displayMovies, fetchLikes };
+export {
+  popupDetails, displayMovies, fetchLikes,
+};
