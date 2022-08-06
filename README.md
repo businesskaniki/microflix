@@ -13,7 +13,7 @@
 
 ## Link to live demo
 
-[microflix website](https://businesskaniki.github.io/microflix/dist/)
+[microflix website](https://businesskaniki.github.io/microflix/)
 
 ## app preview
 
