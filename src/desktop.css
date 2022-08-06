@@ -1,0 +1,205 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,800&family=Poppins&display=swap");
+
+@media only screen and (min-width: 768px) {
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    font-size: 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(0, 0, 0);
+  }
+
+  ul {
+    list-style-type: none;
+  }
+
+  a {
+    text-decoration: none;
+    color: #fff;
+  }
+
+  a:hover {
+    color: #e50914;
+  }
+
+  nav {
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 1.8rem;
+    padding-left: 5.3rem;
+    margin-bottom: 2rem;
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: flex-start;
+    width: 90%;
+    gap: 5rem;
+    padding: 2rem;
+  }
+
+  .logo {
+    background-image: url(./imgs/logo.png);
+    background-size: cover;
+    width: 9.6rem;
+    height: 9.6rem;
+  }
+
+  .cards {
+    display: grid;
+    width: 90vw;
+    gap: 0.9rem;
+    margin: auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  .card {
+    border: 1px solid #e50914;
+    border-radius: 0.3rem;
+    height: 40rem;
+    display: flex;
+    flex-direction: column-reverse;
+    background-size: cover;
+  }
+
+  .card p {
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 15px;
+    max-height: 5.5rem;
+    margin: 0;
+    align-items: center;
+    font-size: 1.8rem;
+    color: #fff;
+  }
+
+  form button {
+    padding: 1rem 1.8rem;
+    border-radius: 0;
+    border: none;
+  }
+
+  .card button {
+    width: 100%;
+    padding: 1.2rem;
+    border-radius: 0;
+    border: none;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    background-color: #e50914;
+    font-size: 1.8rem;
+  }
+
+  .bi {
+    color: #e50914;
+    align-self: flex-end;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .bi:hover {
+    transform: scale(1.2) skewX(-50deg) skewX(50deg);
+  }
+
+  .likes {
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
+    font-size: 1.6rem;
+  }
+
+  footer {
+    color: #fff;
+    margin-top: 2rem;
+    padding: 2rem;
+    border: 3px solid;
+  }
+
+  .popup {
+    position: absolute;
+    top: 12.5%;
+    left: 25%;
+    background-color: #000;
+    border: 3px solid  #e50914;
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 50vw;
+    gap: 1rem;
+  }
+
+  .close {
+    transform: scale(3);
+    align-self: flex-end;
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+
+  .movie {
+    width: 50rem;
+    height: 30rem;
+    background-size: cover;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+    width: 50rem;
+  }
+
+  textarea {
+    padding: 1rem;
+    width: 20vw;
+    height: 10rem;
+    resize: none;
+  }
+
+  form input {
+    padding: 1rem;
+    width: 20vw;
+  }
+
+  .rating {
+    display: flex;
+    justify-content: space-between;
+    width: 50rem;
+    color: yellow;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    width: 50rem;
+    color: yellow;
+  }
+
+  .comments {
+    width: 50rem;
+  }
+
+  .likespan {
+    display: flex;
+    flex-direction: column;
+    height: 3.5rem;
+    align-items: center;
+  }
+}

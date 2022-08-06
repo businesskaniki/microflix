@@ -1,0 +1,205 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,800&family=Poppins&display=swap");
+
+@media only screen and (max-width: 768px) {
+  ul {
+    list-style-type: none;
+  }
+
+  html {
+    font-size: 62.5%;
+  }
+
+  body {
+    font-size: 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    background-color: rgb(0, 0, 0);
+  }
+
+  a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 1.4rem;
+  }
+
+  a:hover {
+    color: #e50914;
+  }
+
+  .logo {
+    background-image: url(./imgs/logo.png);
+    background-size: cover;
+    width: 5rem;
+    height: 5rem;
+  }
+
+  nav {
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+
+  nav ul {
+    display: flex;
+    justify-content: flex-start;
+    gap: 2.5rem;
+    padding: 2rem;
+  }
+
+  .cards {
+    display: grid;
+    width: 100%;
+    gap: 0.4rem;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card {
+    border: 1px solid #e50914;
+    border-radius: 0.3rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column-reverse;
+    background-size: cover;
+  }
+
+  .card p {
+    background-color: #000;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 8px;
+    margin: 0;
+    align-items: center;
+    font-size: 1rem;
+    color: #fff;
+  }
+
+  form button {
+    padding: 0.8rem 1.8rem;
+    border-radius: 0;
+    border: none;
+  }
+
+  .card button {
+    width: 100%;
+    padding: 5px;
+    border-radius: 0 0 0.3rem 0.3rem;
+    border: none;
+    box-sizing: border-box;
+    color: #000;
+    cursor: pointer;
+    background-color: #e50914;
+    font-size: 1.8rem;
+  }
+
+  .bi {
+    color: #e50914;
+    align-self: flex-end;
+    font-size: large;
+    transition: all 0.1s ease-in-out;
+  }
+
+  .bi:hover {
+    transform: scale(1.2) skewX(-50deg) skewX(50deg);
+  }
+
+  .likes {
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1rem;
+  }
+
+  footer {
+    color: #fff;
+    margin-top: 2rem;
+    padding: 8px;
+    font-size: 1.4rem;
+    border: 3px solid;
+  }
+
+  .popup {
+    position: absolute;
+    font-size: 1.3rem;
+    top: 10%;
+    left: 4%;
+    background-color: #000;
+    border: 2px solid  #e50914;
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    width: 80%;
+    gap: 8px;
+  }
+
+  .popup h2 {
+    padding: 0;
+    margin: 0;
+  }
+
+  .movie {
+    width: 100%;
+    height: 20rem;
+    background-size: cover;
+  }
+
+  .comments {
+    padding-left: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .comments li {
+    width: 100%;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+    width: 100%;
+  }
+
+  .popup h3,
+  .popup h4 {
+    font-size: 1.5rem;
+  }
+
+  textarea {
+    width: 95%;
+    height: 8rem;
+    resize: none;
+  }
+
+  form input {
+    padding: 0.8rem;
+    width: 75%;
+  }
+
+  .rating {
+    width: 100%;
+    color: yellow;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    color: yellow;
+  }
+
+  .close {
+    transform: scale(2.7);
+    align-self: flex-end;
+    cursor: pointer;
+  }
+}
